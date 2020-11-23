@@ -1,0 +1,9 @@
+*/.idea/*
+.idea/*
+*/*.iml
+*.iml
+*/out/*
+out/*
+.DS_Store
+*/.DS_Store
+*.MF
