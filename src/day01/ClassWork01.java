@@ -6,11 +6,16 @@ public class ClassWork01 {
     }
 
     public String reverse(String str) {
-        String output = "";
+       /* String output = "";
         for (int i = str.length() - 1; i >= 0; i--) {
             output += str.charAt(i);
         }
-        return output;
+        return output;*/
+        char[] output = new char[str.length()];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = str.charAt(str.length() - 1 - i);
+        }
+        return new String(output);
     }
 
     public int recursionSquareOfN(int n) {
