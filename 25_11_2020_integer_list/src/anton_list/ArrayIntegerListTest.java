@@ -67,18 +67,25 @@ class ArrayIntegerListTest {
     @Test
     void testGet_5_5() {
         arrIntList.addLast(5);
-        assertEquals(5, arrIntList.get(1));
+        assertEquals(5, arrIntList.get(0));
     }
 
     @Test
     void testGet_9_9() {
         arrIntList.addLast(5);
+        assertThrows(IndexOutOfBoundsException.class, () -> arrIntList.get(1));
         arrIntList.addLast(9);
-        assertEquals(9, arrIntList.get(2));
+        assertEquals(9, arrIntList.get(1));
+    }
+
+    @Test
+    void testGet_0_outOfBound() {
+        assertThrows(IndexOutOfBoundsException.class, () -> arrIntList.get(1));
     }
 
     @Test
     void testSet_6_6() {
+        assertThrows(IndexOutOfBoundsException.class, () -> arrIntList.get(1));
         arrIntList.addLast(5);
         arrIntList.addLast(9);
         arrIntList.addLast(5);
@@ -89,6 +96,7 @@ class ArrayIntegerListTest {
 
     @Test
     void testRemoveById_6xAdd1xRemove3_4() {
+        assertThrows(IndexOutOfBoundsException.class, () -> arrIntList.get(1));
         arrIntList.addLast(1);
         arrIntList.addLast(2);
         arrIntList.addLast(3);
