@@ -44,7 +44,9 @@ public class ArrayIntegerList implements IntegerList {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
         int temp = source[index];
-        source[index] = source[size - 1];
+        for (int i = index; i < size - 1; i++) {
+            source[i] = source[i + 1];
+        }
         size--;
         return temp;
     }

@@ -104,6 +104,12 @@ class ArrayIntegerListTest {
         arrIntList.addLast(5);
         arrIntList.addLast(6);
         assertEquals(4, arrIntList.removeById(3));
+        assertEquals(1, arrIntList.get(0));
+        assertEquals(2, arrIntList.get(1));
+        assertEquals(3, arrIntList.get(2));
+        assertEquals(5, arrIntList.get(3));
+        assertEquals(6, arrIntList.get(4));
+        assertEquals(6, arrIntList.source[5]);
         assertEquals(5, arrIntList.size());
     }
 
