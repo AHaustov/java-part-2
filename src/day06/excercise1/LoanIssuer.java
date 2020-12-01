@@ -33,9 +33,6 @@ public class LoanIssuer {
             return true;
         else if (isKind && consumer.getAge() < 70)
             return true;
-        else if (consumer.getAge() < 50)
-            return true;
-        else
-            return false;
+        else return consumer.getAge() < 50;
     }
 }

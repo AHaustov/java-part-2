@@ -9,7 +9,7 @@ class BankAppTest {
     LoanIssuer bob = new LoanIssuer("Robert", false, true);
     LoanIssuer luc = new LoanIssuer("Lucas", true, false);
     LoanIssuer carl = new LoanIssuer("Carl", false, false);
-
+    LoanIssuer[] employee = new LoanIssuer[]{tom, bob, luc, carl};
 
     LoanConsumer maria = new LoanConsumer("Maria", 17, 5000);
     LoanConsumer ted = new LoanConsumer("Theodor", 31, 25000);
@@ -17,6 +17,7 @@ class BankAppTest {
     LoanConsumer arthur = new LoanConsumer("Arthur", 71, 50000);
     LoanConsumer kevin = new LoanConsumer("Kevin", 21, 15000);
     LoanConsumer chantale = new LoanConsumer("Chantale", 29, 31000);
+    LoanConsumer[] consumer = new LoanConsumer[]{maria, ted, agatha, arthur, kevin, chantale};
 
     @Test
     void testAge_under18_false() {
@@ -25,8 +26,9 @@ class BankAppTest {
         assertFalse(luc.toIssue(maria));
         assertFalse(carl.toIssue(maria));
     }
+
     @Test
-    void testIncome_customerUnder20k_false(){
+    void testIncome_customerUnder20k_false() {
         assertFalse(tom.toIssue(kevin));
         assertFalse(bob.toIssue(kevin));
         assertFalse(luc.toIssue(kevin));
@@ -59,6 +61,12 @@ class BankAppTest {
     @Test
     void testNotLazyNotKind_customerOver70AndOver20k_false() {
         assertFalse(carl.toIssue(arthur));
+    }
+
+    @Test
+    void testKindCustomerUnderAndOver50_ok(){
+
+
     }
 
 }
