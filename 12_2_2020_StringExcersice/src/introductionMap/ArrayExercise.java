@@ -1,4 +1,4 @@
-package task2_array;
+package introductionMap;
 
 public class ArrayExercise {
     //use map -> collection
