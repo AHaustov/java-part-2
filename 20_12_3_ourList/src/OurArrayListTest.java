@@ -145,7 +145,7 @@ class OurArrayListTest {
         }
 
         assertEquals(17, list.size());
-        assertEquals(32, list.source.length);
+
     }
 
     @Test

@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public interface OurList<Type> {
 
     /**
@@ -53,4 +55,13 @@ public interface OurList<Type> {
      * @return true if the obj is present in this list (according to the method 'equals')
      */
     boolean contains(Type obj);
+    /**
+     * @return iterator object which iterates from the beginning to the end of the list
+     */
+    Iterator<Type> forwardIterator();
+
+    /**
+     * @return iterator object which iterates from the end to the beginning of the list
+     */
+    Iterator<Type> backwardIterator();
 }
