@@ -1,6 +1,6 @@
 import java.util.Iterator;
 
-public class ReverseArrayIterator implements Iterator {
+public class ReverseArrayIterator implements Iterator<Integer> {
     private final int[] arrayToIterate;
     private int currentIndex;
 
@@ -15,7 +15,7 @@ public class ReverseArrayIterator implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public Integer next() {
         return arrayToIterate[currentIndex--];
     }
 }
