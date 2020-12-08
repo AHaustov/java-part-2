@@ -17,6 +17,7 @@ class OurArrayListTest {
         Iterator<Integer> iterator = list.forwardIterator();
         for (int i = 0; i < 5; i++) {
             assertEquals(i, iterator.next());
+            assertEquals(i, list.get(i));
         }
     }
 
@@ -28,6 +29,7 @@ class OurArrayListTest {
         Iterator<Integer> iterator = list.backwardIterator();
         for (int i = 4; i >= 0; i--) {
             assertEquals(i, iterator.next());
+            assertEquals(i, list.get(i));
         }
     }
 
