@@ -158,7 +158,7 @@ public class OurArrayList<Type> implements OurList<Type> {
 
         @Override
         public Type next() {
-            return source[endIndex - currentIndex - 1];
+            return source[endIndex - 1 - currentIndex++];
         }
     }
 }

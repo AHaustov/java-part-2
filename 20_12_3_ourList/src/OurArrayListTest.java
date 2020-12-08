@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OurArrayListTest {
@@ -8,11 +10,26 @@ class OurArrayListTest {
 
 
     @Test
-    public void testAddStringAndGetString_HelloWorld_HelloWorld(){
-
+    public void testForwardIterator_01234_01234() {
+        for (int i = 0; i < 5; i++) {
+            list.addLast(i);
+        }
+        Iterator<Integer> iterator = list.forwardIterator();
+        for (int i = 0; i < 5; i++) {
+            assertEquals(i, iterator.next());
+        }
     }
 
-
+    @Test
+    public void testBackwardIterator_01234_43210() {
+        for (int i = 0; i < 5; i++) {
+            list.addLast(i);
+        }
+        Iterator<Integer> iterator = list.backwardIterator();
+        for (int i = 4; i >= 0; i--) {
+            assertEquals(i, iterator.next());
+        }
+    }
 
     @Test
     public void testSize_emptyList_zero() {
