@@ -32,33 +32,8 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public T removeById(int index) {
-        if (index >= size || index < 0)
-            throw new NullPointerException();
-        if (size == 1) {
-            Node<T> node = first;
-            first = last = null;
-            size = 0;
-            return node.element;
-        }
-        if (index == 0) {
-            Node<T> node = first;
-            first = node.next;
-            first.previous = null;
-            size--;
-            return node.element;
-        }
-        if (index == size - 1) {
-            Node<T> node = last;
-            last = node.previous;
-            last.next = null;
-            size--;
-            return node.element;
-        }
-        Node<T> node = getNodeByIndex(index);
-        node.previous.next = node.next;
-        node.next.previous = node.previous;
-        size--;
-        return node.element;
+        Node<T> needle = getNodeByIndex(index);
+        return removeNode(needle);
     }
 
     @Override
@@ -68,60 +43,70 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public void clear() {
-        OurLinkedList.Node<T> node = first;
-        while (node.next != null) {
-            node = node.next;
-            node.previous.next = null;
-            node.previous = null;
-        }
         size = 0;
         first = last = null;
     }
 
     @Override
     public boolean remove(T obj) {
-        if (obj == null) {
-            Node<T> node = first;
-            for (int i = 0; i < size; i++) {
-                if (node.element == null) {
-                    removeById(i);
-                    return true;
-                }
-                node = node.next;
-            }
+        Node<T> needle = findByElement(obj);
+        if (needle == null)
             return false;
-        }
-        Node<T> node = first;
-        for (int i = 0; i < size; i++) {
-            if (node.element.equals(obj)) {
-                removeById(i);
-                return true;
-            }
-            node = node.next;
-        }
-        return false;
+
+        removeNode(needle);
+        return true;
     }
 
     @Override
     public boolean contains(T obj) {
+        return findByElement(obj) != null;
+    }
+
+    private Node<T> findByElement(T obj) {
+        Node<T> res = first;
         if (obj == null) {
-            Node<T> node = first;
-            while (node.next != null) {
-                if (node.element == null) {
-                    return true;
-                }
-                node = node.next;
+//            for (int i = 0; i < size; i++)
+            while (res != null) {
+                if (res.element == null)
+                    return res;
+
+                res = res.next;
             }
-            return false;
-        }
-        Node<T> node = first;
-        while (node.next != null) {
-            if (node.element.equals(obj)) {
-                return true;
+        } else {
+            while (res != null) {
+                if (obj.equals(res.element))
+                    return res;
+
+                res = res.next;
             }
-            node = node.next;
         }
-        return false;
+
+        return null;
+    }
+
+    private T removeNode(Node<T> needle) {
+        Node<T> before = needle.previous;
+        Node<T> after = needle.next;
+
+        if (before != null) {
+            before.next = after;
+        } else {
+            first = after;
+        }
+
+        if (after != null) {
+            after.previous = before;
+        } else {
+            last = before;
+        }
+
+        //clear the removing element
+        needle.previous = needle.next = null;
+        T res = needle.element;
+        needle.element = null;
+
+        size--;
+        return res;
     }
 
     @Override
@@ -138,7 +123,7 @@ public class OurLinkedList<T> implements OurList<T> {
 
     private Node getNodeByIndex(int index) {
         if (index >= size || index < 0)
-            throw new NullPointerException();
+            throw new IndexOutOfBoundsException();
         Node<T> node = first;
         for (int i = 0; i < index; i++) {
             node = node.next;
@@ -170,12 +155,12 @@ public class OurLinkedList<T> implements OurList<T> {
 
         @Override
         public boolean hasNext() {
-            return currentNode != last;
+            return currentNode != null;
         }
 
         @Override
         public T next() {
-            if (currentNode == last)
+            if (currentNode == null)
                 throw new IndexOutOfBoundsException();
             T result = currentNode.element;
             currentNode = currentNode.next;
@@ -192,12 +177,12 @@ public class OurLinkedList<T> implements OurList<T> {
 
         @Override
         public boolean hasNext() {
-            return currentNode != first;
+            return currentNode != null;
         }
 
         @Override
         public T next() {
-            if (currentNode == first)
+            if (currentNode == null)
                 throw new IndexOutOfBoundsException();
             T result = currentNode.element;
             currentNode = currentNode.previous;
