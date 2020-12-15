@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ListRandomRule implements RandomRule {
-    private ArrayList<Integer> values;
+    private List<Integer> values;
     private Random random = new Random();
 
     public ListRandomRule(List<Integer> values) {
@@ -13,6 +13,7 @@ public class ListRandomRule implements RandomRule {
     }
 
     public ListRandomRule(int... values) {
+        this.values = new ArrayList<>();
         for (int element : values) {
             this.values.add(element);
         }
