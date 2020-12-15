@@ -3,10 +3,13 @@
 public class TextPattern {
 
 
-    public boolean isPatternInText(String text, String pattern) {
+    public boolean isPatternInText(StringBuilder text, StringBuilder pattern) {
         if (pattern.length() == 0) return true;
         if (text.length() < pattern.length()) return false;
-        return false;
-
+        if (text.charAt(text.length() - 1) == pattern.charAt(pattern.length() - 1))
+            return isPatternInText(text.deleteCharAt(text.length() - 1), pattern.deleteCharAt(pattern.length() - 1));
+        else return isPatternInText(text.deleteCharAt(text.length() - 1), pattern);
     }
+
+
 }

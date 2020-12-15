@@ -2,3 +2,12 @@
 - Deque
 
 HomeWork: this method, but sum not multiplications
+
+ same as for each:   (iterable)
+    List<Integer> list= new ArrayList<>();
+    Iterator<Integer> iterator = list.iterator();
+        while (iterator.hasNext()){
+
+           int number= iterator.next();
+
+}
