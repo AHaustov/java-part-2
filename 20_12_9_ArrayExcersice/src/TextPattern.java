@@ -12,4 +12,19 @@ public class TextPattern {
     }
 
 
+    /**
+     *
+     * @param text
+     * @param pattern
+     * @param start count for pattern position of char to compare
+     * @param zero count for text position of char to compare
+     * @return boolean , if String Pattern is somehow included in text in right order -> "Hl" return true for "Hello"
+     */
+    public boolean isPatternInText(String text, String pattern, int start, int zero) {
+        if (pattern.length() == start) return true;
+        if (text.length() - zero < pattern.length() - start) return false;
+        if (text.charAt(zero) == pattern.charAt(start))
+            return isPatternInText(text, pattern, ++start, ++zero);
+        else return isPatternInText(text, pattern, start, ++zero);
+    }
 }
