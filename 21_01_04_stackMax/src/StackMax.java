@@ -3,37 +3,34 @@ import java.util.ArrayList;
 
 public class StackMax {
     private ArrayDeque<Integer> source;
-    private ArrayList<Integer> maxStack;
+    private ArrayDeque<Integer> maxStack;
 
     public StackMax() {
         source = new ArrayDeque<>();
-        maxStack = new ArrayList<>();
+        maxStack = new ArrayDeque<>();
     }
 
-    public int findIndex(int elt) {
-        int index = maxStack.size() - 1;
-        while (elt < maxStack.get(index) && index != 0)
-            index--;
-        return index;
-    }
 
     public void addLast(int elt) {
-        if (maxStack.size() == 0)
-            maxStack.add(elt);
-        else if (getMax() < elt)
-            maxStack.add(elt);
+        if (source.size() == 0)
+            maxStack.addLast(elt);
         else {
-            maxStack.add(findIndex(elt), elt);
+            int input = getMax() < elt ? elt : getMax();
+            maxStack.addLast(input);
         }
         source.addLast(elt);
     }
 
     public int getLast() {
+        if (source.size() == 0)
+            throw new IndexOutOfBoundsException();
         return source.getLast();
     }
 
     public int removeLast() {
-        maxStack.remove(maxStack.size() - 1);
+        if (source.size() == 0)
+            throw new IndexOutOfBoundsException();
+        maxStack.removeLast();
         return source.removeLast();
     }
 
@@ -42,7 +39,9 @@ public class StackMax {
     }
 
     public int getMax() {
-        return maxStack.get(maxStack.size() - 1);
+        if (source.size() == 0)
+            throw new IndexOutOfBoundsException();
+        return maxStack.getLast();
     }
 
    /* public int getMax() {
