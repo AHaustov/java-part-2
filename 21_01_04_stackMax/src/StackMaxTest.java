@@ -1,9 +1,12 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StackMaxTest {
-    StackMax test = new StackMax();
+    StackMax test = new StackMax(new IntegerNaturalComparator());
+    StackMax testCars = new StackMax(new CarsComparator());
 
     @Test
     public void test_addLast_1_1() {
@@ -46,15 +49,33 @@ class StackMaxTest {
             assertEquals(100, test.getMax());
         }
     }
+
     @Test
-    public void test_addLast5xremoveLast5x_IndexOOB(){
+    public void test_addLast5xremoveLast5x_IndexOOB() {
         for (int i = 0; i < 5; i++) {
             test.addLast(i);
         }
         for (int i = 0; i < 5; i++) {
             test.removeLast();
         }
-        assertThrows(IndexOutOfBoundsException.class,()->test.getMax());
-        assertThrows(IndexOutOfBoundsException.class,()->test.getLast());
+        assertThrows(IndexOutOfBoundsException.class, () -> test.getMax());
+        assertThrows(IndexOutOfBoundsException.class, () -> test.getLast());
     }
+
+    @Test
+    public void test_carsStack_add3cars_shows_youngest_as_max() {
+        Cars mazda_red = new Cars(2, 1000);
+        Cars mazda_grey = new Cars(4, 1000);
+        Cars opel_grey = new Cars(2, 10000);
+        Cars opel_red= new Cars(1,500);
+        testCars.addLast(mazda_red);
+        testCars.addLast(mazda_grey);
+        testCars.addLast(opel_grey);
+        assertEquals(mazda_red, testCars.getMax());
+        assertEquals(opel_grey, testCars.getLast());
+        testCars.addLast(opel_red);
+        assertEquals(opel_red, testCars.getMax());
+        assertEquals(opel_red, testCars.getLast());
+    }
+
 }

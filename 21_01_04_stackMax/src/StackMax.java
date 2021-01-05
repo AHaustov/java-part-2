@@ -1,36 +1,41 @@
 import java.util.ArrayDeque;
-import java.util.ArrayList;
+import java.util.Comparator;
 
-public class StackMax {
-    private ArrayDeque<Integer> source;
-    private ArrayDeque<Integer> maxStack;
 
-    public StackMax() {
+public class StackMax<T> {
+    private final ArrayDeque<T> source;
+    private final ArrayDeque<T> maxStack;
+    private final Comparator<T> comparator;
+
+    public StackMax(Comparator<T> comparator) {
+        this.comparator = comparator;
         source = new ArrayDeque<>();
         maxStack = new ArrayDeque<>();
     }
 
 
-    public void addLast(int elt) {
-        if (source.size() == 0)
+    public void addLast(T elt) {
+        if (source.size() == 0) {
             maxStack.addLast(elt);
-        else {
-            int input = getMax() < elt ? elt : getMax();
-            maxStack.addLast(input);
-        }
-        source.addLast(elt);
+            source.addLast(elt);
+        } else if (comparator.compare(elt, getMax())>=0) {
+            maxStack.addLast(elt);
+            source.addLast(elt);
+        } else
+            source.addLast(elt);
     }
 
-    public int getLast() {
+    public T getLast() {
         if (source.size() == 0)
             throw new IndexOutOfBoundsException();
         return source.getLast();
     }
 
-    public int removeLast() {
+    public T removeLast() {
         if (source.size() == 0)
             throw new IndexOutOfBoundsException();
-        maxStack.removeLast();
+        if (comparator.compare(getLast(), getMax())  >=0)
+            maxStack.removeLast();
         return source.removeLast();
     }
 
@@ -38,7 +43,7 @@ public class StackMax {
         return source.size();
     }
 
-    public int getMax() {
+    public T getMax() {
         if (source.size() == 0)
             throw new IndexOutOfBoundsException();
         return maxStack.getLast();
