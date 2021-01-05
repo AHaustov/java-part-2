@@ -1,4 +1,6 @@
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 
 public class OurLinkedList<T> implements OurList<T> {
@@ -121,6 +123,33 @@ public class OurLinkedList<T> implements OurList<T> {
         return iterator;
     }
 
+    @Override
+    public void sort(Comparator<T> comparator) {
+        Object[] copy = new Object[size];
+
+        int i = 0;
+        for (T elt : this) {
+            copy[i++] = elt;
+        }
+        this.clear();
+        insertionSort(copy, comparator);
+        for (Object elt : copy) {
+            this.addLast((T) elt);
+        }
+    }
+
+    public static void insertionSort(Object[] arr, Comparator comparator) {
+        for (int i = 1; i < arr.length; i++) {
+            Object elt =  arr[i];
+            int indexOF = i - 1;
+            while (indexOF >= 0 && comparator.compare( arr[indexOF], elt) > 0) {
+                arr[indexOF + 1] = arr[indexOF];
+                indexOF = indexOF - 1;
+            }
+            arr[indexOF + 1] = elt;
+        }
+    }
+
     private Node getNodeByIndex(int index) {
         if (index >= size || index < 0)
             throw new IndexOutOfBoundsException();
@@ -130,6 +159,12 @@ public class OurLinkedList<T> implements OurList<T> {
         }
         return node;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return forwardIterator();
+    }
+
 
     private static class Node<T> {
         Node<T> next;

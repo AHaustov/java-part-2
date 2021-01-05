@@ -1,5 +1,9 @@
+import Comparator.IntegerComparator;
+import Comparator.StringComparator;
+
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,6 +12,7 @@ public abstract class OurListTest {
 
     OurList<Integer> list;
     OurList<String> stringList;
+
 
     @Test
     public void testSize_emptyList_zero() {
@@ -323,6 +328,33 @@ public abstract class OurListTest {
     }
 
     @Test
+    public void test_sort_int() {
+        for (int i = 0; i < 6; i++) {
+            list.addLast(5 - i);
+        }
+        list.sort(new IntegerComparator());
+        Iterator<Integer> it = list.forwardIterator();
+        for (int i = 0; i < 6; i++) {
+            assertEquals(i, it.next());
+        }
+    }
+
+    @Test
+    public void testStringList_sort() {
+        String[] start = {"Evgenievna", "Vladislava", "Borisovich", "Evgeny"};
+        for (String str : start) {
+            stringList.addLast(str);
+        }
+
+        stringList.sort(new StringComparator());
+        Iterator<String> it = stringList.forwardIterator();
+        assertEquals("Borisovich", it.next());
+        assertEquals("Evgenievna", it.next());
+        assertEquals("Evgeny", it.next());
+        assertEquals("Vladislava", it.next());
+    }
+
+    @Test
     public void testBackwardIterator_severalElements() {
         String[] expected = {"Evgenievna", "Vladislava", "Borisovich", "Evgeny"};
 
@@ -363,6 +395,5 @@ public abstract class OurListTest {
             stringList.addLast(symbol + i);
         }
     }
-
 
 }

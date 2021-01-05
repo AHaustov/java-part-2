@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -115,6 +117,17 @@ public class OurArrayList<Type> implements OurList<Type> {
     public Iterator<Type> backwardIterator() {
         Iterator<Type> iterator = new BackwardIterator(this);
         return iterator;
+    }
+
+    @Override
+    public void sort(Comparator<Type> comparator) {
+        Arrays.sort(source,comparator);
+    }
+
+
+    @Override
+    public Iterator<Type> iterator() {
+        return forwardIterator();
     }
 
     private static class ForwardIterator<Type> implements Iterator<Type> {

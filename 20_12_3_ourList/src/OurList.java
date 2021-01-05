@@ -1,6 +1,7 @@
+import java.util.Comparator;
 import java.util.Iterator;
 
-public interface OurList<Type> {
+public interface OurList<Type> extends Iterable<Type>{
 
     /**
      * Adds the element to the 'this' instance
@@ -55,6 +56,7 @@ public interface OurList<Type> {
      * @return true if the obj is present in this list (according to the method 'equals')
      */
     boolean contains(Type obj);
+
     /**
      * @return iterator object which iterates from the beginning to the end of the list
      */
@@ -64,4 +66,11 @@ public interface OurList<Type> {
      * @return iterator object which iterates from the end to the beginning of the list
      */
     Iterator<Type> backwardIterator();
+
+    /**
+     * sorts list with comparator rules
+     *
+     * @param comparator
+     */
+    void sort(Comparator<Type> comparator);
 }
