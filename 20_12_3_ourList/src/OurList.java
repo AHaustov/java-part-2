@@ -1,7 +1,7 @@
 import java.util.Comparator;
 import java.util.Iterator;
 
-public interface OurList<Type> extends Iterable<Type>{
+public interface OurList<Type> extends Iterable<Type> {
 
     /**
      * Adds the element to the 'this' instance
@@ -73,4 +73,8 @@ public interface OurList<Type> extends Iterable<Type>{
      * @param comparator
      */
     void sort(Comparator<Type> comparator);
+
+    Type max(Comparator<Type> comparator);
+
+    Type min(Comparator<Type> comparator);
 }

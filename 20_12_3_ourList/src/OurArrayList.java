@@ -121,9 +121,46 @@ public class OurArrayList<Type> implements OurList<Type> {
 
     @Override
     public void sort(Comparator<Type> comparator) {
-        Arrays.sort(source,comparator);
+        Type[] copy = (Type[]) new Object[size];
+
+        int i = 0;
+        for (Type elt : this) {
+            copy[i++] = elt;
+        }
+        this.clear();
+        //insertionSort(copy, comparator);
+        Arrays.sort(copy,comparator);
+        for (Type elt : copy) {
+            this.addLast(elt);
+        }
+    }
+    public Type max(Comparator<Type> comparator) {
+        if (size == 0)
+            return null;
+
+        Iterator<Type> it = new ForwardIterator<>(this);
+        Type max = it.next();
+        Type temp;
+        while (it.hasNext()) {
+            temp = it.next();
+            max = comparator.compare(max, temp) > 0 ? max : temp;
+        }
+        return max;
     }
 
+    public Type min(Comparator<Type> comparator) {
+        if (size == 0)
+            return null;
+
+        Iterator<Type> it = new ForwardIterator<>(this);
+        Type min = it.next();
+        Type temp;
+        while (it.hasNext()) {
+            temp = it.next();
+            min = comparator.compare(min, temp) < 0 ? min : temp;
+        }
+        return min;
+    }
 
     @Override
     public Iterator<Type> iterator() {

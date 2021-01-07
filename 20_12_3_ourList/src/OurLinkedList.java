@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.Consumer;
@@ -125,14 +126,15 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public void sort(Comparator<T> comparator) {
-        Object[] copy = new Object[size];
+        T[] copy = (T[]) new Object[size];
 
         int i = 0;
         for (T elt : this) {
             copy[i++] = elt;
         }
         this.clear();
-        insertionSort(copy, comparator);
+        //insertionSort(copy, comparator);
+        Arrays.sort(copy, comparator);
         for (Object elt : copy) {
             this.addLast((T) elt);
         }
@@ -140,14 +142,42 @@ public class OurLinkedList<T> implements OurList<T> {
 
     public static void insertionSort(Object[] arr, Comparator comparator) {
         for (int i = 1; i < arr.length; i++) {
-            Object elt =  arr[i];
+            Object elt = arr[i];
             int indexOF = i - 1;
-            while (indexOF >= 0 && comparator.compare( arr[indexOF], elt) > 0) {
+            while (indexOF >= 0 && comparator.compare(arr[indexOF], elt) > 0) {
                 arr[indexOF + 1] = arr[indexOF];
                 indexOF = indexOF - 1;
             }
             arr[indexOF + 1] = elt;
         }
+    }
+
+    public T max(Comparator<T> comparator) {
+        if (size == 0)
+            return null;
+
+        Iterator<T> it = new ForwardIterator<>();
+        T max = it.next();
+        T temp;
+        while (it.hasNext()) {
+            temp = it.next();
+            max = comparator.compare(max, temp) > 0 ? max : temp;
+        }
+        return max;
+    }
+
+    public T min(Comparator<T> comparator) {
+        if (size == 0)
+            return null;
+
+        Iterator<T> it = new ForwardIterator<>();
+        T min = it.next();
+        T temp;
+        while (it.hasNext()) {
+            temp = it.next();
+            min = comparator.compare(min, temp) < 0 ? min : temp;
+        }
+        return min;
     }
 
     private Node getNodeByIndex(int index) {
