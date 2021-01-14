@@ -50,7 +50,7 @@ class OurHashMapTest {
 
     @Test
     public void test_iterator() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 11; i++) {
             map.put(i, i * 11);
         }
         Iterator<Integer> it = map.keyIterator();

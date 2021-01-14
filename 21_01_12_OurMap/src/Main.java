@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Main {
     public static void main(String[] args) {
         OurHashMap<Integer, Integer> map = new OurHashMap<>();
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 20; i++) {
             map.put(i * 2, i * 11);
         }
         Iterator<Integer> it = map.keyIterator();

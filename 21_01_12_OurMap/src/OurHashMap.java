@@ -52,9 +52,10 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
             Pair<K, V> currentPair = pair;
             while (currentPair != null) {
                 int newIndex = hash(currentPair.key) % capacity;
+                Pair<K, V> temp = currentPair.next;
                 currentPair.next = sourceNew[newIndex];
                 sourceNew[newIndex] = currentPair;
-                currentPair = currentPair.next;
+                currentPair = temp;
             }
         }
         source = sourceNew;
