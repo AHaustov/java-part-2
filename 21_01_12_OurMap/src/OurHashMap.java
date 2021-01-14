@@ -113,7 +113,8 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
 
     @Override
     public Iterator<V> valueIterator() {
-        return null;
+        Iterator<V> it = new ValueIterator<V>();
+        return it;
     }
 
     static public class Pair<K, V> {
@@ -137,6 +138,26 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
             this.key = key;
             this.value = value;
             this.next = next;
+        }
+    }
+
+    class ValueIterator<V> implements Iterator<V> {
+        Iterator<K> it;
+
+        public ValueIterator() {
+            it = new KeyIterator<>();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return it.hasNext();
+        }
+
+        @Override
+        public V next() {
+           if(!it.hasNext())
+               throw new NullPointerException();
+            return (V) get(it.next());
         }
     }
 

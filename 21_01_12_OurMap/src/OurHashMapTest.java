@@ -40,7 +40,7 @@ class OurHashMapTest {
 
     @Test
     public void test_several_remove() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             map.put(i * 2, i * 3);
         }
         for (int i = 0; i < 10; i++) {

@@ -11,8 +11,11 @@ public class Main {
         Iterator<Integer> it = map.keyIterator();
         int i = 0;
         while (it.hasNext())
-            System.out.println(it.next());
-
+            System.out.print(it.next()+" ");
+        System.out.println();
+        Iterator<Integer> vit = map.valueIterator();
+        while (vit.hasNext())
+            System.out.print(vit.next()+" ");
     }
 
 
