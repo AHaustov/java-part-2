@@ -1,0 +1,19 @@
+import java.util.Iterator;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class Main {
+    public static void main(String[] args) {
+        OurHashMap<Integer, Integer> map = new OurHashMap<>();
+        for (int i = 0; i < 13; i++) {
+            map.put(i * 2, i * 11);
+        }
+        Iterator<Integer> it = map.keyIterator();
+        int i = 0;
+        while (it.hasNext())
+            System.out.println(it.next());
+
+    }
+
+
+}
