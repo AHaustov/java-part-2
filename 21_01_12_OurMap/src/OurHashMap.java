@@ -87,13 +87,14 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
             return current.value;
         } else {
             V temp;
-            while (current != null) {
+            while (current != null && current.next != null) {
                 if (current.next.key.equals(key)) {
                     temp = current.next.value;
                     current.next = current.next.next;
                     size--;
                     return temp;
                 }
+                current = current.next;
             }
             return null;
         }
@@ -155,8 +156,8 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
 
         @Override
         public V next() {
-           if(!it.hasNext())
-               throw new NullPointerException();
+            if (!it.hasNext())
+                throw new NullPointerException();
             return (V) get(it.next());
         }
     }
@@ -196,7 +197,7 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
                 return currentPair.key;
             }
             if (currentPair.next == null) {
-                while (source[index] == null && index < capacity) {
+                while (source[index] == null) {
                     index++;
                 }
                 currentPair = (Pair<K, V>) source[index++];

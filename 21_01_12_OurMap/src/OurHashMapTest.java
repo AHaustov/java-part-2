@@ -41,10 +41,10 @@ class OurHashMapTest {
     @Test
     public void test_several_remove() {
         for (int i = 0; i < 20; i++) {
-            map.put(i * 2, i * 3);
+            map.put(i * 8, i * 3);
         }
         for (int i = 0; i < 10; i++) {
-            assertEquals(i * 3, map.remove(i * 2));
+            assertEquals(i * 3, map.remove(i * 8));
         }
     }
 
