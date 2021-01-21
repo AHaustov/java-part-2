@@ -1,8 +1,6 @@
-import java.util.Comparator;
-import java.util.Iterator;
+import java.util.*;
 
 public class OurTreeMap<K, V> implements OurMap<K, V> {
-
 
     private static class Node<K, V> {
         Node<K, V> left;
@@ -27,6 +25,9 @@ public class OurTreeMap<K, V> implements OurMap<K, V> {
         this.keyComparator = keyComparator;
     }
 
+    /**
+     * if we use this constructor in the client code, that means that the keys are Comparable
+     */
     public OurTreeMap() {
         this.keyComparator = new Comparator<K>() {
             @Override
@@ -37,69 +38,121 @@ public class OurTreeMap<K, V> implements OurMap<K, V> {
         };
     }
 
-
-    private Node<K, V> findNode(K key) {
-        Node<K, V> parentNode = null;
-        Node<K, V> currentNode = root;
-        while (currentNode != null && !currentNode.key.equals(key)) {
-            parentNode = currentNode;
-            currentNode = keyComparator.compare(currentNode.key, key) < 0 ? currentNode.right : currentNode.left;
-        }
-        if (currentNode == null)
-            currentNode = new Node<>(null, null, parentNode);
-        return currentNode;
-    }
-
     @Override
     public V put(K key, V value) {
-        if (root == null) {
-            root = new Node<>(key, value, null);
-            size++;
-            return null;
+        if (key == null)
+            throw new NullPointerException();
+
+        Node<K, V> current = root;
+        Node<K, V> parent = null;
+        int compared = 0;
+
+        while (current != null) {
+            parent = current;
+            compared = keyComparator.compare(key, current.key);
+
+            if (compared > 0)
+                current = current.right;
+            else if (compared < 0)
+                current = current.left;
+            else {
+                V oldValue = current.value;
+                current.value = value;
+                return oldValue;
+            }
         }
-        V temp = null;
-        Node<K, V> currentNode = findNode(key);
-        if (currentNode.key != null && currentNode.key.equals(key)) {
-            temp = currentNode.value;
-            currentNode.value = value;
+
+        Node<K, V> newNode = new Node<>(key, value, parent);
+        if (compared > 0) {
+            parent.right = newNode;
+        } else if (compared < 0) {
+            parent.left = newNode;
         } else {
-            currentNode.key = key;
-            currentNode.value = value;
-            size++;
-            if (keyComparator.compare(currentNode.parent.key, key) < 0) {
-                currentNode.parent.right = currentNode;
-            } else
-                currentNode.parent.left = currentNode;
+            root = newNode;
         }
-        return temp;
+
+        size++;
+        return null;
     }
 
     @Override
     public V get(K key) {
-        return findNode(key).value;
+        Node<K, V> node = findNode(key);
+        return node == null ? null : node.value;
     }
 
-    public V linearRemove(Node<K, V> node) {
-        if (node.equals(root)) {
-            if (node.right == null) {
-                root = node.left;
-            } else
-                root = node.right;
+    private Node<K, V> findNode(K key) {
+        Node<K, V> current = root;
+
+        while (current != null) {
+            int compared = keyComparator.compare(key, current.key);
+
+            if (compared > 0)
+                current = current.right;
+            else if (compared < 0)
+                current = current.left;
+            else {
+                return current;
+            }
         }
-
-        size--;
-        return node.value;
+        return null;
     }
+
 
     @Override
     public V remove(K key) {
-        Node<K, V> currentNode = findNode(key);
-        if (currentNode.key == null)
+        Node<K, V> nodeToRemove = findNode(key);
+        if (nodeToRemove == null)
             return null;
-        V temp = currentNode.value;
 
+        size--;
 
-        return null;
+        if (nodeToRemove.left != null && nodeToRemove.right != null)
+            return junctionRemove(nodeToRemove);
+
+        return linearRemove(nodeToRemove);
+    }
+
+    private V linearRemove(Node<K, V> nodeToRemove) {
+        V res = nodeToRemove.value;
+        if (nodeToRemove == root) {
+            root = nodeToRemove.left == null ? nodeToRemove.right : nodeToRemove.left;
+        } else {
+            if (keyComparator.compare(nodeToRemove.key, nodeToRemove.parent.key) < 0) {
+                nodeToRemove.parent.left = nodeToRemove.left == null ? nodeToRemove.right : nodeToRemove.left;
+            }
+            if (keyComparator.compare(nodeToRemove.key, nodeToRemove.parent.key) > 0) {
+                nodeToRemove.parent.right = nodeToRemove.left == null ? nodeToRemove.right : nodeToRemove.left;
+            }
+        }
+        if (nodeToRemove.left != null)
+            nodeToRemove.left.parent = nodeToRemove.parent;
+        if (nodeToRemove.right != null)
+            nodeToRemove.right.parent = nodeToRemove.parent;
+
+        return res;
+    }
+
+    private V junctionRemove(Node<K, V> nodeToRemove) {
+        Node<K, V> nextNode = findNext(nodeToRemove);
+
+        V oldValue = nodeToRemove.value;
+        nodeToRemove.key = nextNode.key;
+        nodeToRemove.value = nextNode.value;
+
+        linearRemove(nextNode);
+        return oldValue;
+    }
+
+    private Node<K, V> findNext(Node<K, V> nodeToRemove) {
+        Node<K, V> next = nodeToRemove.right;
+        while (next.left != null) next = next.left;
+        return next;
+    }
+
+    @Override
+    public boolean containsKey(K key) {
+        return findNode(key).key.equals(key);
     }
 
     @Override
@@ -109,11 +162,49 @@ public class OurTreeMap<K, V> implements OurMap<K, V> {
 
     @Override
     public Iterator<K> keyIterator() {
-        return null;
+        Iterator<K> it = new KeyIterator<>();
+        return it;
     }
 
     @Override
     public Iterator<V> valueIterator() {
         return null;
     }
+
+    class KeyIterator<K,V> implements Iterator<K> {
+        Node<K, V> currentNode;
+        int index;
+
+        public KeyIterator() {
+            index = 0;
+            currentNode = (Node<K, V>) root;
+            while (currentNode != null && currentNode.left != null)
+                currentNode = currentNode.left;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        @Override
+        public K next() {
+            if (index == size)
+                throw new NullPointerException();
+            K res = currentNode.key;
+            index++;
+            if (hasNext()) {
+                if (currentNode.right != null) {
+                    currentNode = currentNode.right;
+                    while (currentNode.left != null)
+                        currentNode = currentNode.left;
+                } else
+                    while (keyComparator.compare(currentNode.key, currentNode.parent.key) > 0)
+                        currentNode = currentNode.parent;
+            }
+
+            return res;
+        }
+    }
+
 }

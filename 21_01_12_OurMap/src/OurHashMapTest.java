@@ -1,61 +1,34 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class OurHashMapTest {
-
-
-    OurHashMap<Integer, Integer> map = new OurHashMap<>();
-
-    @Test
-    public void test_emptyMap() {
-        assertEquals(0, map.size());
+class OurHashMapTest extends OurMapTest {
+    @BeforeEach
+    public void init() {
+        map = new OurHashMap<>();
+        intMap = new OurHashMap<>();
     }
 
     @Test
-    public void test_put_get() {
-        map.put(1, 2);
-        assertEquals(1, map.size());
-        assertEquals(2, map.get(1));
-        map.put(1, 4);
-        assertEquals(4, map.get(1));
-        assertEquals(1, map.size());
-        map.put(2, 3);
-        assertEquals(3, map.get(2));
-        assertEquals(2, map.size());
-    }
+    void testPut_resize() {
+        map = new OurHashMap<>(0.5);
+        Auto opel = new Auto("grey", "Opel");
+        Auto mazda = new Auto("red", "Mazda");
+        Auto bmw = new Auto("black", "BMW");
+        Auto audi = new Auto("blue", "Audi");
+        Auto audi2 = new Auto("braun", "Audi");
 
-    @Test
-    public void test_remove() {
-        map.put(1, 2);
-        map.put(17, 3);
-        map.put(33, 4);
-
-        assertEquals(3, map.size());
-        assertEquals(3, map.remove(17));
-        assertEquals(2, map.size());
-    }
-
-    @Test
-    public void test_several_remove() {
-        for (int i = 0; i < 20; i++) {
-            map.put(i * 8, i * 3);
-        }
-        for (int i = 0; i < 10; i++) {
-            assertEquals(i * 3, map.remove(i * 8));
-        }
-    }
-
-    @Test
-    public void test_iterator() {
-        for (int i = 0; i < 11; i++) {
-            map.put(i, i * 11);
-        }
-        Iterator<Integer> it = map.keyIterator();
-        int i = 0;
-        while (it.hasNext())
-            assertEquals(i++, it.next());
+        map.put("WIN4528", opel);
+        map.put("WIN74528", opel);
+        map.put("WIN56828", mazda);
+        map.put("WIN56628", mazda);
+        map.put("WIN56298", mazda);
+        map.put("WIN8988", bmw);
+        map.put("WIN8989", bmw);
+        map.put("WIN5628", audi);
+        map.put("WIN56256", audi2);
+        assertEquals(map.get("WIN56256"), audi2);
+        assertEquals(map.size(), 9);
     }
 }

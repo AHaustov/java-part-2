@@ -10,6 +10,8 @@ public interface OurMap<K, V> {
 
     public int size();
 
+    boolean containsKey(K key);
+
     public Iterator<K> keyIterator();
 
     public Iterator<V> valueIterator();
