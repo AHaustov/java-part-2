@@ -1,6 +1,6 @@
 import java.util.Iterator;
 
-public interface OurMap<K, V> {
+public interface OurMap<K, V> extends Iterable<K> {
 
     public V put(K key, V value);
 

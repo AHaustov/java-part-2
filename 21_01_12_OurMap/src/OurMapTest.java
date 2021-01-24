@@ -2,6 +2,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -182,11 +183,12 @@ class OurMapTest {
         map.put("WIN56256", audi2);
 
         Iterator<String> iterator = map.keyIterator();
-
+        String[] exp = {"WIN4528", "WIN56256", "WIN5628", "WIN56298",
+                "WIN56628", "WIN56828", "WIN74528",
+                "WIN8988", "WIN8989"};
         int i = 0;
         while (iterator.hasNext()) {
-            iterator.next();
-            i++;
+            assertEquals(exp[i++], iterator.next());
         }
 
         assertEquals(9, i);
@@ -194,6 +196,31 @@ class OurMapTest {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             iterator.next();
         });
+    }
+
+    @Test
+    public void testValueIterator_severalElements() {
+        Auto opel = new Auto("grey", "Opel");
+        Auto mazda = new Auto("red", "Mazda");
+        Auto bmw = new Auto("black", "BMW");
+        Auto audi = new Auto("blue", "Audi");
+        Auto audi2 = new Auto("braun", "Audi");
+
+        map.put("WIN4528", opel);
+        map.put("WIN74528", opel);
+        map.put("WIN56828", mazda);
+        map.put("WIN56628", mazda);
+        map.put("WIN56298", mazda);
+        map.put("WIN8988", bmw);
+        map.put("WIN8989", bmw);
+        map.put("WIN5628", audi);
+        map.put("WIN56256", audi2);
+
+        Iterator<Auto> it = map.valueIterator();
+
+        for (String auto : map) {
+            assertEquals(it.next(), map.remove(auto));
+        }
     }
 
     OurMap<Integer, String> intMap;
@@ -214,6 +241,28 @@ class OurMapTest {
         }
 
         assertEquals(7, i);
+    }
+
+    @Test
+    public void test_Iterator() {
+        for (int i = 0; i < 5; i++) {
+            intMap.put(i, "aaa");
+            intMap.put(i * 2, "bbb");
+        }
+        Iterator<Integer> iterator = intMap.keyIterator();
+        int[] exp = {0, 1, 2, 3, 4, 6, 8};
+        int i = 0;
+        while (iterator.hasNext()) {
+            assertEquals(exp[i], iterator.next());
+            i++;
+        }
+        Iterator<String> it = intMap.valueIterator();
+        String[] exp1 = {"bbb", "aaa", "aaa", "aaa", "aaa", "bbb", "bbb"};
+        i = 0;
+        while (it.hasNext()) {
+            assertEquals(exp1[i], it.next());
+            i++;
+        }
     }
 
     @Test
@@ -254,9 +303,10 @@ class OurMapTest {
         intMap.put(1, "a");
         intMap.put(2, "b");
         intMap.put(3, "c");
-        assertEquals("b", intMap.get(2));
-        assertEquals("a", intMap.get(1));
-        assertEquals("c", intMap.get(3));
+        assertTrue( intMap.containsKey(2));
+        assertTrue(intMap.containsKey(1));
+        assertTrue( intMap.containsKey(3));
+        assertFalse( intMap.containsKey(4));
     }
 
     @Test

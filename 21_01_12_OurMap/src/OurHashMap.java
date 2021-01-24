@@ -147,6 +147,11 @@ public class OurHashMap<K, V> implements OurMap<K, V> {
         return new KeyIterator();
     }
 
+    @Override
+    public Iterator iterator() {
+        return keyIterator();
+    }
+
     private class KeyIterator implements Iterator<K> {
 
         int index = 0;

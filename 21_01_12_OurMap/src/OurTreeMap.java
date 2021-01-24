@@ -2,6 +2,11 @@ import java.util.*;
 
 public class OurTreeMap<K, V> implements OurMap<K, V> {
 
+    @Override
+    public Iterator iterator() {
+        return keyIterator();
+    }
+
     private static class Node<K, V> {
         Node<K, V> left;
         Node<K, V> right;
@@ -152,7 +157,7 @@ public class OurTreeMap<K, V> implements OurMap<K, V> {
 
     @Override
     public boolean containsKey(K key) {
-        return findNode(key).key.equals(key);
+        return findNode(key) != null;
     }
 
     @Override
@@ -162,22 +167,39 @@ public class OurTreeMap<K, V> implements OurMap<K, V> {
 
     @Override
     public Iterator<K> keyIterator() {
-        Iterator<K> it = new KeyIterator<>();
-        return it;
+        return new KeyIterator();
     }
 
     @Override
     public Iterator<V> valueIterator() {
-        return null;
+        return new ValueIterator();
     }
 
-    class KeyIterator<K,V> implements Iterator<K> {
+    class ValueIterator implements Iterator<V> {
+        Iterator<K> it;
+
+        public ValueIterator() {
+            it = new KeyIterator();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return it.hasNext();
+        }
+
+        @Override
+        public V next() {
+            return findNode(it.next()).value;
+        }
+    }
+
+    class KeyIterator implements Iterator<K> {
         Node<K, V> currentNode;
         int index;
 
         public KeyIterator() {
             index = 0;
-            currentNode = (Node<K, V>) root;
+            currentNode = root;
             while (currentNode != null && currentNode.left != null)
                 currentNode = currentNode.left;
         }
@@ -190,7 +212,7 @@ public class OurTreeMap<K, V> implements OurMap<K, V> {
         @Override
         public K next() {
             if (index == size)
-                throw new NullPointerException();
+                throw new IndexOutOfBoundsException();
             K res = currentNode.key;
             index++;
             if (hasNext()) {
@@ -198,9 +220,11 @@ public class OurTreeMap<K, V> implements OurMap<K, V> {
                     currentNode = currentNode.right;
                     while (currentNode.left != null)
                         currentNode = currentNode.left;
-                } else
-                    while (keyComparator.compare(currentNode.key, currentNode.parent.key) > 0)
+                } else {
+                    while (currentNode != currentNode.parent.left)
                         currentNode = currentNode.parent;
+                    currentNode = currentNode.parent;
+                }
             }
 
             return res;
