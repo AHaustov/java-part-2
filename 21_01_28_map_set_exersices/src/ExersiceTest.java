@@ -42,5 +42,54 @@ class ExersiceTest {
         assertEquals(2, catalogue.get("Opel").size());
     }
 
+    @Test
+    public void test_groupByFirstLetter() {
+        List<String> listFruits = Arrays.asList("banana", "apple", "dragonfruit", "avocado", "pear",
+                "raspberry", "pineapple", "strawberry", "orange", "lime", "mango", "passionfruit",
+                "blackcurrant", "lemon", "cherry");
 
+        List<String> a = Arrays.asList("apple", "avocado");
+        List<String> b = Arrays.asList("banana", "blackcurrant");
+        List<String> c = Arrays.asList("cherry");
+        List<String> d = Arrays.asList("dragonfruit");
+        List<String> l = Arrays.asList("lime", "lemon");
+        List<String> m = Arrays.asList("mango");
+        List<String> r = Arrays.asList("raspberry");
+        List<String> s = Arrays.asList("strawberry");
+        List<String> o = Arrays.asList("orange");
+        List<String> p = Arrays.asList("pear", "pineapple", "passionfruit");
+
+        Map<String, List<String>> catalogue = test.groupByFirstLetter(listFruits);
+        assertEquals(10, catalogue.size());
+        for (String fruit : p) {
+            assertTrue(catalogue.get("p").contains(fruit));
+        }
+        for (String fruit : s) {
+            assertTrue(catalogue.get("s").contains(fruit));
+        }
+        for (String fruit : o) {
+            assertTrue(catalogue.get("o").contains(fruit));
+        }
+        for (String fruit : m) {
+            assertTrue(catalogue.get("m").contains(fruit));
+        }
+        for (String fruit : l) {
+            assertTrue(catalogue.get("l").contains(fruit));
+        }
+        for (String fruit : r) {
+            assertTrue(catalogue.get("r").contains(fruit));
+        }
+        for (String fruit : d) {
+            assertTrue(catalogue.get("d").contains(fruit));
+        }
+        for (String fruit : c) {
+            assertTrue(catalogue.get("c").contains(fruit));
+        }
+        for (String fruit : b) {
+            assertTrue(catalogue.get("b").contains(fruit));
+        }
+        for (String fruit : a) {
+            assertTrue(catalogue.get("a").contains(fruit));
+        }
+    }
 }
