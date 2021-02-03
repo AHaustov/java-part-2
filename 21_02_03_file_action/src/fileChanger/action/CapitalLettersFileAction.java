@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CapitalLettersFileAction extends FileAction {
 
-    protected CapitalLettersFileAction(FileOperations fileOperations) {
+    public CapitalLettersFileAction(FileOperations fileOperations) {
         super(fileOperations);
     }
 

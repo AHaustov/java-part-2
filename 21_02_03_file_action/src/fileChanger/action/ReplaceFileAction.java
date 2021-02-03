@@ -10,7 +10,7 @@ public class ReplaceFileAction extends FileAction {
     private final String pattern;
     private final String target;
 
-    protected ReplaceFileAction(FileOperations fileOperations, String pattern, String target) {
+    public ReplaceFileAction(FileOperations fileOperations, String pattern, String target) {
         super(fileOperations);
         this.pattern = pattern;
         this.target = target;
