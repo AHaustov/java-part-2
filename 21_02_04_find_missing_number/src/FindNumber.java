@@ -15,7 +15,14 @@ public class FindNumber {
 
     public int findMissingNumber(List<Integer> target) {
         lib.removeAll(target);
-        return lib.get(0) ;
+        return lib.get(0);
     }
 
+    public int findMissingNumberTwo(List<Integer> target) {
+        int res = (target.size() + 1) * (target.size() + 2) / 2;
+        for (Integer i : target) {
+            res = res - i;
+        }
+        return res;
+    }
 }
