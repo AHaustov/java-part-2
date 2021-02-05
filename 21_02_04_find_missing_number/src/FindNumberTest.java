@@ -16,9 +16,10 @@ class FindNumberTest {
         for (int i = 1; i <= 100; i++) {
             notFinalList.add(i);
         }
-        notFinalList.remove(1);
 
-        assertEquals(1,test.findMissingNumber(notFinalList));
+        notFinalList.remove(48);// removes the number in place 48, not 48 itself
+
+        assertEquals(49,test.findMissingNumber(notFinalList));
 
     }
 }
