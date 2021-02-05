@@ -4,13 +4,14 @@ public class Main {
 
         CharThread starThread = new CharThread(20, '*');
         CharThread plusThread = new CharThread(20, '+');
-        ChaThread hashThread = new ChaThread(5, '#');
 
+        ChaThread hashThread = new ChaThread(5, '#');
+        Thread hash = new Thread(hashThread);
 
         starThread.start();
         plusThread.start();
 
-        hashThread.run();
+        hash.start();
 
         starThread.join();
         plusThread.join();
