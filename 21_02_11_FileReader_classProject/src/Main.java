@@ -11,23 +11,23 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         BlockingQueue<String> queue = new LinkedBlockingQueue<>();
-        PrintWriter pw = new PrintWriter(new FileWriter("output.txt"));
         OperationContext oc = new OperationContext();
-        BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+        try (PrintWriter pw = new PrintWriter(new FileWriter("output.txt"));
+             BufferedReader br = new BufferedReader(new FileReader("input.txt"))
+        ) {
 
-        Thread supplier = new Thread(new Supplier(br, queue));
-        Thread consumer = new Thread(new Consumer(queue, pw, oc));
+            Thread supplier = new Thread(new Supplier(br, queue));
+            Thread consumer = new Thread(new Consumer(queue, pw, oc));
+            supplier.isDaemon();
+            consumer.isDaemon();
 
-        supplier.isDaemon();
-        consumer.isDaemon();
+            supplier.start();
+            consumer.start();
 
-        supplier.start();
-        consumer.start();
+            supplier.join();
+            consumer.join();
 
-        supplier.join();
-        consumer.join();
-
-        pw.close();
+        }
     }
 
 
