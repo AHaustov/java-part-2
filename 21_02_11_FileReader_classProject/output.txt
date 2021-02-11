@@ -1,0 +1,7 @@
+hello
+world
+#wrong format
+gnoDDong
+#wrong format
+1223456789
+false#not_existing#wrong operation

@@ -1,0 +1,7 @@
+HELLO#lower_case
+WORLD#lower_case
+
+DingDong#reverse
+
+9876543221#sort
+false#not_existing
