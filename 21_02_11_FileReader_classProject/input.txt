@@ -1,6 +1,6 @@
 HELLO#lower_case
 WORLD#lower_case
-
+abcdefg#random
 DingDong#reverse
 
 9876543221#sort

@@ -8,17 +8,21 @@ public class RandomSO implements IStringOperation {
     @Override
     public String operate(String line) {
         StringBuilder temp = new StringBuilder(line);
-        StringBuilder res=new StringBuilder();
-        for (int i = 0; i < line.length(); i++) {
-            res.append(randomChar(temp));
+        StringBuilder res = new StringBuilder();
+        while (temp.length() != 0) {
+            synchronized (res) {
+                char input = randomChar(temp);
+                res.append(input);
+            }
         }
-
         return new String(res);
     }
 
-    private StringBuilder randomChar(StringBuilder temp) {
+    private char randomChar(StringBuilder temp) {
         int n = random.nextInt(temp.length());
-        return temp.deleteCharAt(n);
+        char res=temp.charAt(n);
+        temp.deleteCharAt(n);
+        return res;
     }
 
     @Override
