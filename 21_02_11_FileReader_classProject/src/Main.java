@@ -9,21 +9,22 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        BlockingQueue<String> queue = new LinkedBlockingQueue<>();
+        BlockingQueue<String> queue = new LinkedBlockingQueue<>(10);
         OperationContext oc = new OperationContext();
         try (BufferedReader br = new BufferedReader(new FileReader("input.txt"))) {
             try (PrintWriter pw = new PrintWriter(new FileWriter("output.txt"))) {
                 Thread supplier = new Thread(new Supplier(br, queue));
                 Thread consumer = new Thread(new Consumer(queue, pw, oc));
-                supplier.isDaemon();
-                consumer.isDaemon();
+                Thread consumer2 = new Thread(new Consumer(queue, pw, oc));
 
+                consumer.setDaemon(true);
+                consumer2.setDaemon(true);
                 supplier.start();
                 consumer.start();
+                consumer2.start();
 
-                supplier.join();
-                consumer.join();
-
+                while (supplier.isAlive() || !queue.isEmpty())
+                    supplier.join();
             }
         }
     }

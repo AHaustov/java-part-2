@@ -18,14 +18,14 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
-        try {
-            while (!queue.isEmpty()) {
-                String temp = queue.remove();
-                String toWrite = handleStr(temp);
-                writer.write(toWrite + System.lineSeparator());
 
+        try {
+            while (true) {
+                String temp = queue.take();
+                String toWrite = handleStr(temp);
+                writer.println(toWrite);
                 System.out.println(temp);
-                System.out.println(toWrite);
+                Thread.sleep(1000);
             }
         } catch (Exception e) {
             e.printStackTrace();
