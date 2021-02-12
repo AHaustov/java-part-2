@@ -25,7 +25,7 @@ public class Consumer implements Runnable {
                 String toWrite = handleStr(temp);
                 writer.println(toWrite);
                 System.out.println(temp);
-                Thread.sleep(1000);
+                Thread.sleep(100);
             }
         } catch (Exception e) {
             e.printStackTrace();

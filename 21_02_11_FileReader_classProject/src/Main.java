@@ -16,15 +16,18 @@ public class Main {
                 Thread supplier = new Thread(new Supplier(br, queue));
                 Thread consumer = new Thread(new Consumer(queue, pw, oc));
                 Thread consumer2 = new Thread(new Consumer(queue, pw, oc));
+                Thread consumer3 = new Thread(new Consumer(queue, pw, oc));
 
                 consumer.setDaemon(true);
                 consumer2.setDaemon(true);
+                consumer3.setDaemon(true);
                 supplier.start();
                 consumer.start();
                 consumer2.start();
-
-                while (supplier.isAlive() || !queue.isEmpty())
-                    supplier.join();
+                consumer3.start();
+                supplier.join();
+                while (!queue.isEmpty())
+                    Thread.sleep(1);
             }
         }
     }
