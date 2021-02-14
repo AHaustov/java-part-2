@@ -6,3 +6,11 @@ DingDong#reverse
 9876543221#sort
 false#not_existing
 blob#
+HELLO#lower_case
+WORLD#lower_case
+abcdefg#random
+DingDong#reverse
+
+9876543221#sort
+false#not_existing
+blob#

@@ -1,4 +1,4 @@
-package Operations;
+package operations;
 
 public class LowerCaseSO implements IStringOperation{
     @Override

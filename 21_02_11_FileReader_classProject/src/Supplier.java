@@ -6,10 +6,12 @@ public class Supplier implements Runnable {
 
     private final BufferedReader br;
     private final BlockingQueue<String> queue;
+    LineCounter lc;
 
-    public Supplier(BufferedReader br, BlockingQueue<String> queue) {
+    public Supplier(BufferedReader br, BlockingQueue<String> queue, LineCounter lc) {
         this.br = br;
         this.queue = queue;
+        this.lc = lc;
     }
 
     @Override
@@ -18,6 +20,7 @@ public class Supplier implements Runnable {
             String line;
             while ((line = br.readLine()) != null && !line.equals("exit")) {
                 queue.put(line);
+                lc.increase();
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

@@ -1,5 +1,5 @@
-import Operations.IStringOperation;
-import Operations.OperationContext;
+import operations.IStringOperation;
+import operations.OperationContext;
 
 import java.io.PrintWriter;
 import java.util.concurrent.BlockingQueue;
@@ -9,11 +9,13 @@ public class Consumer implements Runnable {
     private final BlockingQueue<String> queue;
     private final PrintWriter writer;
     private final OperationContext oc;
+    private final LineCounter lc;
 
-    public Consumer(BlockingQueue<String> queue, PrintWriter writer, OperationContext oc) {
+    public Consumer(BlockingQueue<String> queue, PrintWriter writer, OperationContext oc, LineCounter lc) {
         this.queue = queue;
         this.writer = writer;
         this.oc = oc;
+        this.lc = lc;
     }
 
     @Override
@@ -24,13 +26,14 @@ public class Consumer implements Runnable {
                 String temp = queue.take();
                 String toWrite = handleStr(temp);
                 writer.println(toWrite);
-                System.out.println(temp);
-                Thread.sleep(100);
+                lc.decrease();
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     private String handleStr(String line) {
         if (!line.contains("#") || line.indexOf('#') != line.lastIndexOf('#'))
