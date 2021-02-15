@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,11 +18,9 @@ public class ConfigReader {
 
     public List<String> getOperationPaths() {
         String pathsStr = properties.getProperty(DEFAULT_PATHS);
-        List<String> res = new ArrayList<>();
-        String[] oparations = pathsStr.split(",");
-        for (String op : oparations) {
-            res.add(op);
-        }
-        return res;
+
+        String[] operations = pathsStr.split(",");
+
+        return Arrays.asList(operations);
     }
 }

@@ -32,7 +32,7 @@ public class Main {
         consumer3.start();
         supplier.join();
 
-        while (lc.count != 0 || supplier.isAlive())
+        while (lc.count != 0)
             Thread.sleep(1);
 
         pw.close();

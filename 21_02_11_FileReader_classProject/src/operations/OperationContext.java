@@ -24,9 +24,6 @@ public class OperationContext {
         operationByName.put(sort.getName(), sort);*/
     }
 
-    public OperationContext() {
-    }
-
     public OperationContext(List<String> operationPaths) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         operationByName = new HashMap<>();
         for (String op : operationPaths) {
