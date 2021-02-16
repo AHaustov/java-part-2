@@ -1,1 +1,1 @@
-paths=operations.LowerCaseSO,operations.RandomSO,operations.ReverseSO,operations.UpperCaseSO,operations.SortSO
+paths=fileReader.operations.LowerCaseSO,fileReader.operations.RandomSO,fileReader.operations.ReverseSO,fileReader.operations.UpperCaseSO,fileReader.operations.SortSO

@@ -1,10 +1,17 @@
-import operations.IStringOperation;
-import operations.OperationContext;
+package fileReader;
+
+import fileReader.operations.IStringOperation;
+import fileReader.operations.OperationContext;
 
 import java.io.PrintWriter;
 import java.util.concurrent.BlockingQueue;
 
+
 public class Consumer implements Runnable {
+
+    final public static String SEPARATOR = "#";
+    final public static String WRONG_FORMAT = "wrong format";
+    final public static String WRONG_OPERATION = "wrong operation";
 
     private final BlockingQueue<String> queue;
     private final PrintWriter writer;
@@ -35,16 +42,18 @@ public class Consumer implements Runnable {
     }
 
 
-    private String handleStr(String line) {
-        if (!line.contains("#") || line.indexOf('#') != line.lastIndexOf('#'))
-            return line + "#wrong format";
+    String handleStr(String line) {
+        String[] res = line.split(SEPARATOR);
+        if (res.length != 2)
+            return line + SEPARATOR + WRONG_FORMAT;
+        String stringToPerform = res[0];
+        String operationName = res[1];
 
-        int index = line.indexOf('#') + 1;
-        if (index < line.length()) {
-            IStringOperation handle = oc.getOperation(line.substring(index));
-            if (handle != null)
-                return handle.operate(line.substring(0, index - 1));
-        }
-        return line + "#wrong operation";
+        IStringOperation stringOperation = oc.getOperation(operationName);
+
+        if (stringOperation == null)
+            return line + SEPARATOR + WRONG_OPERATION;
+
+        return stringOperation.operate(stringToPerform);
     }
 }

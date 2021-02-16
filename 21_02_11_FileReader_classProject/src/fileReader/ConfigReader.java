@@ -1,3 +1,5 @@
+package fileReader;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +13,7 @@ public class ConfigReader {
     private static final String DEFAULT_PATHS = "paths";
     Properties properties;
 
-    ConfigReader(String filePath) throws IOException {
+    public ConfigReader(String filePath) throws IOException {
         properties = new Properties();
         properties.load(new FileReader(filePath));
     }

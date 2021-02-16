@@ -1,4 +1,4 @@
-package operations;
+package fileReader.operations;
 
 public class UpperCaseSO implements IStringOperation{
     @Override

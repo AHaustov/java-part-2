@@ -1,4 +1,4 @@
-package operations;
+package fileReader.operations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

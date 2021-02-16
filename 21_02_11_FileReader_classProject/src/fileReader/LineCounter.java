@@ -1,3 +1,5 @@
+package fileReader;
+
 public class LineCounter {
 
     Integer count;

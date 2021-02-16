@@ -1,4 +1,6 @@
-import operations.OperationContext;
+package fileReader;
+
+import fileReader.operations.OperationContext;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
