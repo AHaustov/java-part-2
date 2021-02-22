@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 public class PrimeNumbers {
     public static void main(String[] args) {
-        System.out.println(primeNumbersTill(5));
+        System.out.println(primeNumbersTill(20));
     }
 
     public static List<Integer> primeNumbersTill(int n) {
