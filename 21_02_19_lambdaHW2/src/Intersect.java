@@ -5,8 +5,8 @@ public class Intersect {
 
     IntPredicate intersect(List<IntPredicate> predicates) {
         IntPredicate res = x -> true;
-        for (int i = 0; i < predicates.size(); i++) {
-            res = predicates.get(i).and(res);
+        for (IntPredicate predicate : predicates) {
+            res = predicate.and(res);
         }
         return res;
     }
