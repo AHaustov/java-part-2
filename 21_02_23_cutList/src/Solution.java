@@ -7,10 +7,10 @@ public class Solution {
 
     public Map<Integer, Integer> solve(List<Cut> cuts, List<Integer> numbers) {
         Map<Integer, Integer> res = new HashMap<>();
-        for (int n : numbers) {
-            res.put(n,
-                    (int) cuts.stream().
-                            filter(x -> x.left <= n && x.right >= n)
+        for (int number : numbers) {
+            res.put(number,
+                    (int) cuts.stream()
+                            .filter(cut -> cut.left <= number && cut.right >= number)
                             .count());
         }
         return res;
