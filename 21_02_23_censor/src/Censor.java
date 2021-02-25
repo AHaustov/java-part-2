@@ -10,6 +10,6 @@ public class Censor {
 
     public boolean verify(String text) {
         return Arrays.stream(text.split(" "))
-                .noneMatch(x -> dictionary.contains(x.toLowerCase()));
-            }
+                .noneMatch(word -> dictionary.contains(word.toLowerCase()));
+    }
 }
