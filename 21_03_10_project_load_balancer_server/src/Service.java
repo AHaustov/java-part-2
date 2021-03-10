@@ -8,10 +8,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class Service implements Runnable {
     private final Socket socket;
     private final ThreadPoolExecutor pool;
+    private final String name;
 
-    protected Service(Socket socket, ThreadPoolExecutor pool) {
+    protected Service(Socket socket, ThreadPoolExecutor pool, String name) {
         this.socket = socket;
         this.pool = pool;
+        this.name = name;
     }
 
 
@@ -27,7 +29,7 @@ public class Service implements Runnable {
                 socketOutput.println(respone);
             }
             System.out.println("exit socket");
-            Main.countActiveServices(pool);
+            Main.countActiveServices(pool, name);
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
