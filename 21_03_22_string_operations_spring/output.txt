@@ -1,0 +1,10 @@
+hello
+WORLD
+string##wrong operation
+string#wrong operation
+hello
+WORLD
+string#get#length#wrong operation
+hello
+WORLD
+string#get#length#wrong operation
