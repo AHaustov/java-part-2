@@ -16,21 +16,14 @@ import java.util.List;
 public class AppConfiguration {
 
     @Bean
-    public PrintWriter printWriter() throws FileNotFoundException {
-        return new PrintWriter(new FileOutputStream("output.txt"));
+    public PrintWriter printWriter(@Value("${de.haust.string_operation.output.file.path}") String output) throws FileNotFoundException {
+        return new PrintWriter(new FileOutputStream(output));
     }
 
     @Bean
-    public OperationContext context( List<IStringOperation> operations) {
+    public OperationContext context(List<IStringOperation> operations) {
         return new OperationContext(operations);
     }
 
-    @Bean
-    public StringHandler handler(OperationContext context,
-                                 PrintWriter printWriter,
-                                 @Value("${SEPARATOR}") String separator,
-                                 @Value("${WRONG_OPERATION}") String wrongOperation,
-                                 @Value("${WRONG_FORMAT}") String wrongFormat) {
-        return new StringHandler(context, printWriter, separator, wrongOperation, wrongFormat);
-    }
+
 }

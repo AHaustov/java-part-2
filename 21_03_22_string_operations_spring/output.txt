@@ -1,10 +1,16 @@
 hello
-WORLD
-string##wrong operation
-string#wrong operation
+world
+fagcebd
+gnoDgniD
+#wrong format
+1223456789
+false#not_existing#wrong operation
+blob##wrong format
 hello
-WORLD
-string#get#length#wrong operation
-hello
-WORLD
-string#get#length#wrong operation
+world
+deacfgb
+gnoDgniD
+#wrong format
+1223456789
+false#not_existing#wrong operation
+blob##wrong format

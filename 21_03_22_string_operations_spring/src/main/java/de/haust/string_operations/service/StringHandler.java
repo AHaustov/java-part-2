@@ -20,9 +20,9 @@ public class StringHandler {
     // TODO take constants from the application props file. Other configure in the AppConfiguration
     public StringHandler(OperationContext context,
                          PrintWriter printWriter,
-                         @Value("${SEPARATOR}")String separator,
-                         @Value("${WRONG_OPERATION}")String wrongOperation,
-                         @Value("${WRONG_FORMAT}")String wrongFormat) {
+                         @Value("${de.haust.string_operation.service.separator}")String separator,
+                         @Value("${de.haust.string_operation.service.wrong_operation}")String wrongOperation,
+                         @Value("${de.haust.string_operation.service.wrong_format}")String wrongFormat) {
         this.context = context;
         this.writer = printWriter;
         this.separator = separator;
