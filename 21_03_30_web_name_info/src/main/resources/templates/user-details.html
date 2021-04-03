@@ -11,13 +11,12 @@
 <body>
 
 
-<div class="container s8" th:unless="${#lists.isEmpty(contacts)}">
+<div class="container s8" >
     <h1 style=" color: #dc143c ;justify-content: space-around ">User Info</h1>
-    <div class="col s12" th:text="${contacts[id].firstName}"></div>
-    <div class="col s12" th:text="${contacts[id].lastName}"></div>
-    <div class="col s12" th:text="${contacts[id].age}"></div>
-    <div class="col s12"><a th:href="'/contacts'" class="secondary-content">
-        <i class="material-icons blue-text">return</i></a></div>
+    <div class="col s12" th:text="${contact.firstName}"></div>
+    <div class="col s12" th:text="${contact.lastName}"></div>
+    <div class="col s12" th:text="${contact.age}"></div>
+    <a href="/contacts"class="btn btn-large btn-return">Return</a>
 </div>
 
 

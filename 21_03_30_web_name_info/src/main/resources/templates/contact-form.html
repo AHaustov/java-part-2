@@ -9,24 +9,26 @@
     <title>ContactForm</title>
 </head>
 <body>
-<div class="row">
-    <div class="col m6 offset-m3">
-        <h3>Contact-Form</h3>
-        <div class="col s12"><label for="firstname">FirstName: </label>
-            <input type="text" id="firstname" th:placeholder="${contacts[id].firstName}"></div>
+<form action="#" th:action="@{/save-contact}" th:object="${contacts}"
+      method="post">
+    <fieldset>
+        <div class="row">
+            <div class="col m6 offset-m3">
+                <h3>Contact-Form</h3>
+                <div class="col s12"><label for="firstname">FirstName: </label>
+                    <input type="text" id="firstname" th:placeholder="${contact.firstName}?:'Empty'"></div>
 
-        <div class="col s12"><label for="lastname">LastName: </label>
-            <input type="text" id="lastname" th:placeholder="${contacts[id].lastName}"></div>
+                <div class="col s12"><label for="lastname">LastName: </label>
+                    <input type="text" id="lastname" th:placeholder="${contact.lastName}?:'Empty'"></div>
 
-        <div class="col s12"><label for="age">Age: </label>
-            <input type="number" id="age" th:placeholder="${contacts[id].age}"></div>
-        <a th:href="'/save-contact'" class="secondary-content">
-            <div class="col s12">
-                <i class="material-icons blue-text">save</i>
+                <div class="col s12"><label for="age">Age: </label>
+                    <input type="number" id="age" th:placeholder="${contact.age}?:'Empty'"></div>
+                <input type="submit" id="submitButton" th:value="Save" class="btn btn-large btn-return">
+                <a href="/contacts" class="btn btn-large btn-return">Return</a>
             </div>
-        </a>
-    </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </fieldset>
+</form>
 </body>
 </html>
