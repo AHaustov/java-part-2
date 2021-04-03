@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>User-Details</title>
+</head>
+<body>
+
+
+<div class="container s8" th:unless="${#lists.isEmpty(contacts)}">
+    <h1 style=" color: #dc143c ;justify-content: space-around ">User Info</h1>
+    <div class="col s12" th:text="${contacts[id].firstName}"></div>
+    <div class="col s12" th:text="${contacts[id].lastName}"></div>
+    <div class="col s12" th:text="${contacts[id].age}"></div>
+    <div class="col s12"><a th:href="'/contacts'" class="secondary-content">
+        <i class="material-icons blue-text">return</i></a></div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
