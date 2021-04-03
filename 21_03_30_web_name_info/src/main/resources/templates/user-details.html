@@ -10,15 +10,15 @@
 </head>
 <body>
 
+<h1 th:align="center">User Info</h1>
+<div class="container" >
+<div class="divider" ></div>
 
-<div class="container s8" >
-    <h1 style=" color: #dc143c ;justify-content: space-around ">User Info</h1>
-    <div class="col s12" th:text="${contact.firstName}"></div>
-    <div class="col s12" th:text="${contact.lastName}"></div>
-    <div class="col s12" th:text="${contact.age}"></div>
+    <div class="section" ><h6>FirstName:</h6><p th:text="${contact.firstName}"></p></div>
+    <div class="section" ><h6>Lastname:</h6><p th:text="${contact.lastName}"></p></div>
+    <div class="section" ><h6>Age:</h6><p th:text="${contact.age}"></p></div>
     <a href="/contacts"class="btn btn-large btn-return">Return</a>
 </div>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

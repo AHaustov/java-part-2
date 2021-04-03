@@ -23,7 +23,6 @@ public class ContactController {
 
     @GetMapping({"/", "/contacts"})
     public String contacts() {
-        // model.addAttribute("contacts", contacts);
         return "contacts";
     }
 
@@ -34,9 +33,6 @@ public class ContactController {
 
     @GetMapping("/add-contact")
     public String addContact(Model model) {
-        /*ContactCreationDto contactForm = new ContactCreationDto();
-        contactForm.addContact(new Contact());
-        model.addAttribute("form", contactForm);*/
         model.addAttribute("contact",new Contact());
         return "contact-form";
     }
@@ -53,23 +49,18 @@ public class ContactController {
         return "user-details";
     }
 
-    @PostMapping("/save-contact")
-    @ResponseBody
+    @RequestMapping(value="/save-contact",method = RequestMethod.POST)
     public String saveContact(){
 
-        return "redirect:contacts";
+        return "redirect:/contacts";
     }
 
-    @GetMapping("/delete-contact/{id}")
-    public String deleteContact(@PathVariable int id) {
-        contacts.remove(id);
-        return "redirect:contacts";
+    @RequestMapping(value="/delete-contact/{id}")
+    public String deleteContact(@PathVariable String id) {
+        System.out.println(contacts.remove(id));
+
+        return "redirect:/contacts";
     }
 
-   /* @PostMapping("/contacts")
-    @ResponseBody
-    public String acceptContact(@RequestBody Contact contact, @Qualifier("list") List<Contact> list) {
-        list.add(contact);
-        return "You added the following contact: " + contact.getFirstName() + " " + contact.getLastName();
-    }*/
+
 }
