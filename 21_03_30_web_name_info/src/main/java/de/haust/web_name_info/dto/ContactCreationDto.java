@@ -1,26 +1,49 @@
 package de.haust.web_name_info.dto;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository
 public class ContactCreationDto {
-    private List<Contact> contacts;
+    private final Map<Integer, Contact> contacts;
 
     public ContactCreationDto() {
+        this.contacts = new HashMap<>();
     }
 
-    public ContactCreationDto(List<Contact> contacts) {
-        this.contacts = contacts;
+    public ContactCreationDto(Map<Integer, Contact> contacts) {
+        this.contacts = new HashMap<>(contacts);
     }
 
     public void addContact(Contact contact) {
-        this.contacts.add(contact);
+        if (contact.getId() == 0)
+            contact.setId(firstFreeIndex());
+        this.contacts.put(contact.getId(), contact);
     }
 
-    public List<Contact> getContacts() {
-        return contacts;
+    public void removeContact(String id) {
+        int index = Integer.parseInt(id);
+        this.contacts.remove(index);
     }
 
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
+    public Contact getContact(String id) {
+        int index = Integer.parseInt(id);
+        return contacts.get(index);
     }
+
+    public List<Contact> getContactList() {
+        return new ArrayList<>(contacts.values());
+    }
+
+    private int firstFreeIndex() {
+        int i = 1;
+        while (contacts.containsKey(i))
+            i++;
+        return i;
+    }
+
 }

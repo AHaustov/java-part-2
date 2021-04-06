@@ -11,6 +11,10 @@ public class Contact {
     public Contact() {
     }
 
+    public Contact(int id) {
+        this.id = id;
+    }
+
     public Contact(int id, String firstName, String lastName, int age) {
         this.id = id;
         this.firstName = firstName;

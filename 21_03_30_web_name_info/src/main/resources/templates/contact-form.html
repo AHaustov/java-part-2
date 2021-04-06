@@ -9,21 +9,24 @@
     <title>ContactForm</title>
 </head>
 <body>
-<form action="#" th:action="@{/save-contact}" th:object="${contacts}"
+<form action="#" th:action="@{/save-contact}" th:object="${contact}"
       method="post">
     <fieldset>
         <div class="row">
             <div class="col m6 offset-m3">
                 <h3>Contact-Form</h3>
-
+                <input type="hidden" name="id" th:field="*{id}" >
                 <div class="col s12"><label for="firstname">FirstName: </label>
-                    <input type="text" id="firstname" th:placeholder="${contact.firstName}?:'Empty'"></div>
+                    <input type="text" th:field="*{firstName}"  id="firstname"
+                           th:placeholder="${contact.firstName}?:'Empty'"></div>
 
                 <div class="col s12"><label for="lastname">LastName: </label>
-                    <input type="text" id="lastname" th:placeholder="${contact.lastName}?:'Empty'"></div>
+                    <input type="text" th:field="*{lastName}"  id="lastname"
+                           th:placeholder="${contact.lastName}?:'Empty'"></div>
 
                 <div class="col s12"><label for="age">Age: </label>
-                    <input type="number" id="age" th:placeholder="${contact.age}?:'Empty'"></div>
+                    <input type="number" th:field="*{age}"  id="age"
+                           th:placeholder="${contact.age}?:'Empty'"></div>
                 <input type="submit" id="submitButton" th:value="Save" class="btn btn-large btn-return">
                 <a href="/contacts" class="btn btn-large btn-return">Return</a>
             </div>

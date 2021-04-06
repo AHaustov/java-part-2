@@ -1,24 +1,20 @@
 package de.haust.web_name_info.controller;
 
 import de.haust.web_name_info.dto.Contact;
+import de.haust.web_name_info.service.ContactService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public class ContactController {
 
-    public List<Contact> contacts = Arrays.asList(
-            new Contact(0, "Vasya", "Vasin", 21),
-            new Contact(1, "Petya", "Peterson", 22)
-    );
+    private final ContactService contactService;
 
-    @ModelAttribute("newIndex")
-    public int newIndex() {
-        return contacts.size();
+    public ContactController(ContactService contactService) {
+        this.contactService = contactService;
     }
 
     @GetMapping({"/", "/contacts"})
@@ -26,39 +22,40 @@ public class ContactController {
         return "contacts";
     }
 
-   @ModelAttribute("contacts")
+    @ModelAttribute("contacts")
     public List<Contact> contactList() {
-        return contacts;
+        return contactService.getAll();
     }
 
     @GetMapping("/add-contact")
     public String addContact(Model model) {
-        model.addAttribute("contact",new Contact());
+        model.addAttribute("contact", new Contact());
         return "contact-form";
     }
 
     @GetMapping("/edit-contact/{id}")
-    public String editContact(@PathVariable int id,Model model) {
-        model.addAttribute("contact",contacts.get(id));
+    public String editContact(@PathVariable String id, Model model) {
+        Contact contact = contactService.get(id);
+        model.addAttribute("contact", contact);
         return "contact-form";
     }
 
     @GetMapping("/contacts/{id}")
-    public String contact(@PathVariable int id,Model model) {
-        model.addAttribute("contact",contacts.get(id));
+    public String contact(@PathVariable String id, Model model) {
+        Contact contact = contactService.get(id);
+        model.addAttribute("contact", contact);
         return "user-details";
     }
 
-    @RequestMapping(value="/save-contact",method = RequestMethod.POST)
-    public String saveContact(){
-
+    @RequestMapping(value = "/save-contact", method = RequestMethod.POST)
+    public String saveContact(@ModelAttribute Contact contact) {
+        contactService.save(contact);
         return "redirect:/contacts";
     }
 
-    @RequestMapping(value="/delete-contact/{id}")
+    @GetMapping("/delete-contact/{id}")
     public String deleteContact(@PathVariable String id) {
-        System.out.println(contacts.remove(id));
-
+        contactService.delete(id);
         return "redirect:/contacts";
     }
 
