@@ -1,7 +1,7 @@
 package de.haust.web_name_info.service;
 
 import de.haust.web_name_info.dto.Contact;
-import de.haust.web_name_info.dto.ContactCreationDto;
+import de.haust.web_name_info.repository.ContactCreationDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

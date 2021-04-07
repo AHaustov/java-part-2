@@ -1,5 +1,6 @@
-package de.haust.web_name_info.dto;
+package de.haust.web_name_info.repository;
 
+import de.haust.web_name_info.dto.Contact;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
