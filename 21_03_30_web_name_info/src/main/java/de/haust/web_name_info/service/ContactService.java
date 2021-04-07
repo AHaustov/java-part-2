@@ -1,7 +1,7 @@
 package de.haust.web_name_info.service;
 
-import de.haust.web_name_info.dto.Contact;
-import de.haust.web_name_info.repository.ContactCreationDto;
+import de.haust.web_name_info.entity.Contact;
+import de.haust.web_name_info.repository.IContactRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,25 +9,25 @@ import java.util.List;
 @Service
 public class ContactService {
 
-    ContactCreationDto contacts;
+    IContactRepo contacts;
 
-    public ContactService(ContactCreationDto contactCreationDto) {
-        this.contacts = contactCreationDto;
+    public ContactService(IContactRepo contactRepo) {
+        this.contacts = contactRepo;
     }
 
     public Contact get(String id) {
-        return contacts.getContact(id);
+        return contacts.get(id);
     }
 
     public void save(Contact contact) {
-        contacts.addContact(contact);
+        contacts.save(contact);
     }
 
-    public void delete(String id) {
-        contacts.removeContact(id);
+    public Contact remove(String id) {
+        return contacts.remove(id);
     }
 
     public List<Contact> getAll() {
-        return contacts.getContactList();
+        return contacts.findAll();
     }
 }

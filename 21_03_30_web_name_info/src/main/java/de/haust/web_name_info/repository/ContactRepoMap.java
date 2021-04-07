@@ -1,42 +1,41 @@
 package de.haust.web_name_info.repository;
 
-import de.haust.web_name_info.dto.Contact;
-import org.springframework.stereotype.Repository;
+import de.haust.web_name_info.entity.Contact;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
-public class ContactCreationDto {
+
+public class ContactRepoMap implements IContactRepo {
     private final Map<Integer, Contact> contacts;
 
-    public ContactCreationDto() {
+    public ContactRepoMap() {
         this.contacts = new HashMap<>();
     }
 
-    public ContactCreationDto(Map<Integer, Contact> contacts) {
+    public ContactRepoMap(Map<Integer, Contact> contacts) {
         this.contacts = new HashMap<>(contacts);
     }
 
-    public void addContact(Contact contact) {
+    public void save(Contact contact) {
         if (contact.getId() == 0)
             contact.setId(firstFreeIndex());
         this.contacts.put(contact.getId(), contact);
     }
 
-    public void removeContact(String id) {
+    public Contact remove(String id) {
         int index = Integer.parseInt(id);
-        this.contacts.remove(index);
+        return this.contacts.remove(index);
     }
 
-    public Contact getContact(String id) {
+    public Contact get(String id) {
         int index = Integer.parseInt(id);
         return contacts.get(index);
     }
 
-    public List<Contact> getContactList() {
+    public List<Contact> findAll() {
         return new ArrayList<>(contacts.values());
     }
 

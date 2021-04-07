@@ -1,6 +1,6 @@
 package de.haust.web_name_info.controller;
 
-import de.haust.web_name_info.dto.Contact;
+import de.haust.web_name_info.entity.Contact;
 import de.haust.web_name_info.service.ContactService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +55,7 @@ public class ContactController {
 
     @GetMapping("/delete-contact/{id}")
     public String deleteContact(@PathVariable String id) {
-        contactService.delete(id);
+        contactService.remove(id);
         return "redirect:/contacts";
     }
 

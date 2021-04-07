@@ -1,4 +1,4 @@
-package de.haust.web_name_info.dto;
+package de.haust.web_name_info.entity;
 
 public class Contact {
 
