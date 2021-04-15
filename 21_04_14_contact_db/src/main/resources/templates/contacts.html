@@ -22,9 +22,12 @@
             <div class="col s12">
 
                 <h4>Contacts</h4>
-                  <input type="search" th:field="*{searchPattern}" id="searchForm"
+                 <div>
+                     <input type="text" name="searchForm" th:field="*{searchPattern}"
                   th:placeholder="search">
-                <a href="/contacts/search" class="btn btn-large btn-return">Go</a>
+                <input type="submit" value="Search" class="btn btn-medium">
+
+<!--                <a href="/contacts/search" class="btn btn-large btn-return">Go</a>-->
                 <ul class="collection with-header">
                     <li class="collection-item" th:each="contact: ${contacts}">
                         <a th:href="'/contacts/'+${contact.id}"><span th:text="${contact.firstName}"></span></a>

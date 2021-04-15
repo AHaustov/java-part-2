@@ -61,6 +61,7 @@ public class ContactController {
     public String searchContacts(@ModelAttribute SearchFormDto searchForm, Model model) {
         List<Contact> results = contactService.findByPattern(searchForm);
         model.addAttribute("contacts", results);
+        model.addAttribute("searchForm",new SearchFormDto());
         return "contacts";
     }
 }
