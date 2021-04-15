@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>User-Details</title>
+</head>
+<body>
+
+<h1 th:align="center">User Info</h1>
+<div class="container" >
+<div class="divider" ></div>
+
+    <div class="section" ><h6>FirstName:</h6><p th:text="${contact.firstName}"></p></div>
+    <div class="section" ><h6>Lastname:</h6><p th:text="${contact.lastName}"></p></div>
+    <div class="section" ><h6>Age:</h6><p th:text="${contact.age}"></p></div>
+    <a href="/contacts"class="btn btn-large btn-return">Return</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

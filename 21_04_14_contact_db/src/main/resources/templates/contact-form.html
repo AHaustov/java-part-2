@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>ContactForm</title>
+</head>
+<body>
+<form action="#" th:action="@{/save-contact}" th:object="${contact}"
+      method="post">
+    <fieldset>
+        <div class="row">
+            <div class="col m6 offset-m3">
+                <h3>Contact-Form</h3>
+                <input type="hidden" name="id" th:field="*{id}" >
+                <div class="col s12"><label for="firstname">FirstName: </label>
+                    <input type="text" th:field="*{firstName}"  id="firstname"
+                           th:placeholder="${contact.firstName}?:'Empty'"></div>
+
+                <div class="col s12"><label for="lastname">LastName: </label>
+                    <input type="text" th:field="*{lastName}"  id="lastname"
+                           th:placeholder="${contact.lastName}?:'Empty'"></div>
+
+                <div class="col s12"><label for="age">Age: </label>
+                    <input type="number" th:field="*{age}"  id="age"
+                           th:placeholder="${contact.age}?:'Empty'"></div>
+                <input type="submit" id="submitButton" th:value="Save" class="btn btn-large btn-return">
+                <a href="/contacts" class="btn btn-large btn-return">Return</a>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </fieldset>
+</form>
+</body>
+</html>
