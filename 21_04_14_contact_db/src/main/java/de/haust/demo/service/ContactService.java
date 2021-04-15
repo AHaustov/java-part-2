@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -41,7 +40,7 @@ public class ContactService {
     }
 
     public List<Contact> findByPattern(SearchFormDto searchForm) {
-        String searchPattern = searchForm.searchPattern;
+        String searchPattern = searchForm.getSearchPattern();
         List<Contact> results = contactRepo
                 .findByFirstNameContainingOrLastNameContaining(searchPattern,searchPattern);
         return results;

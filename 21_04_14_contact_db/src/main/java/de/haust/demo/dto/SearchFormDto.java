@@ -1,7 +1,7 @@
 package de.haust.demo.dto;
 
 public class SearchFormDto {
-    public String searchPattern;
+    private String searchPattern;
 
     public SearchFormDto() {
     }

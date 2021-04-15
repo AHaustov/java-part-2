@@ -1,10 +1,8 @@
 package de.haust.demo.repository;
 
-import de.haust.demo.dto.SearchFormDto;
 import de.haust.demo.entity.Contact;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.Collection;
 import java.util.List;
 
 
