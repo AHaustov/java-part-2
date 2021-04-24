@@ -89,7 +89,7 @@ class ContactService {
     async remove(id) {
         const response = await this.client.remove(id);
         if (response.ok) {
-             this.loadAll();
+            this.loadAll();
         }
     }
 }
@@ -136,9 +136,17 @@ class ContactClient {
     }
 
     get(id) {
+        return fetch(HOST + `/${id}`);
     }
 
     edit(contact) {
+        return fetch(HOST+ `/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contact)
+        });
     }
 
     add(contact) {
