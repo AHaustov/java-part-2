@@ -100,12 +100,12 @@ public class ContactController {
 //        return "forward:/contacts";
 //    }
 
-    @PostMapping("/contacts/search")// data comes as "searchPattern=pattern&id=1&name=15"
+  /*  @PostMapping("/contacts/search")// data comes as "searchPattern=pattern&id=1&name=15"
     public String searchContacts(@ModelAttribute SearchFormDto searchForm, Model model) {
         List<Contact> contacts = contactService.searchByNameOrLastName(searchForm.searchPattern);
         model.addAttribute("contacts", contacts);
         return "contacts";
-    }
+    }*/
 
 
 }

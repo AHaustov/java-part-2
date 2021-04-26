@@ -1,6 +1,7 @@
 package de.haust.onepaiger_contacts.controller;
 
 import de.haust.onepaiger_contacts.dto.ContactDto;
+import de.haust.onepaiger_contacts.dto.SearchFormDto;
 import de.haust.onepaiger_contacts.entity.Contact;
 import de.haust.onepaiger_contacts.service.ContactService;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,15 @@ public class RestContactController {
                 .map(contactService::toContactDto)
                 .collect(Collectors.toList());
     }
+
+  /*  @PostMapping("/{searchPattern}")
+    public List<ContactDto> searchByName(@PathVariable SearchFormDto searchPattern) {
+        // returns data in the following format: [{"name": "Vasya", ...}, {...}, ...]
+        List<Contact> contacts = contactService.searchByNameOrLastName(searchPattern.searchPattern);
+        return contacts.stream()
+                .map(contactService::toContactDto)
+                .collect(Collectors.toList());
+    }*/
 
     @GetMapping("/{id}")
     public ContactDto get(@PathVariable int id) {

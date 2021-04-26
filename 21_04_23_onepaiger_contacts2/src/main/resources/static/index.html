@@ -8,6 +8,7 @@
     <title>Contact</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -18,7 +19,7 @@
             <div class="col s12">
                 <h4 style="color: darkgreen">Contacts</h4>
             </div>
-            <form class="col s12" action="/contacts/search" method="post">
+            <form class="col s12" id="searchForm">
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">blur_on</i>
@@ -26,11 +27,12 @@
                                placeholder="search"/>
                     </div>
                     <div class="input-field col s6">
-                        <button class="waves-effect waves-light btn" role="button" name="action"><i
+                        <button class="waves-effect waves-light btn"  data-action="search"><i
                                 class="material-icons left">search</i>Search
                         </button>&nbsp;
-                        <a href="/contacts/" class="waves-effect waves-light btn"><i
-                                class="material-icons right">refresh</i>Refresh</a>
+                        <button class="waves-effect waves-light btn" data-action="refresh"><i
+                                class="material-icons right">refresh</i>Refresh
+                        </button>
                     </div>
                 </div>
             </form>
@@ -47,6 +49,7 @@
                     <i class="material-icons">check</i></a>
                 </button>
             </div>
+            <input type="hidden" name="id">
             <div class="input-field col s3">
                 <input type="text" class="materialize-textarea" name="name"
                        placeholder="name"/>
@@ -87,18 +90,33 @@
 <!-- Compiled and minified JavaScript -->
 <script src="js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-<li class="collection-item hide" id="contact-template">
-    <a class="badge">
-        <span style="color: darkcyan" data-id="name">name</span>
-        <span style="color: darkcyan" data-id="lastName">lastName</span>
-    </a>
-    <a class="secondary-content">
-        <i class="material-icons waves-light red-text"data-action="removeContact">delete</i>
-    </a>
-    <a class="secondary-content">
-        <i class="material-icons teal-text" data-action="editContact">edit</i>&nbsp;&nbsp;&nbsp;
-    </a>
-</li>
+<div class="collection-item hide contact-item" id="contact-template">
+    <li>
+        <a class="badge" data-action="toggleDetails">
+            <span style="color: darkcyan" data-id="name">name</span>
+            <span style="color: darkcyan" data-id="lastName">lastName</span>
+        </a>
+        <a class="secondary-content" data-action="removeContact">
+            <i class="material-icons waves-light red-text">delete</i>
+        </a>
+        <a class="secondary-content" data-action="editContact">
+            <i class="material-icons teal-text">edit</i>&nbsp;&nbsp;&nbsp;
+        </a>
+    </li>
+    <div class="col s12 hide" id="user-details">
+        <table>
+            <tr>
+                <th><b>Firstname</b></th>
+                <th><b>Lastname</b></th>
+                <th><b>Age</b></th>
+            </tr>
+            <tr>
+                <td><span class="name">name</span></td>
+                <td><span class="lastName">lastName</span></td>
+                <td><span class="age">age</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
 </body>
 </html>
