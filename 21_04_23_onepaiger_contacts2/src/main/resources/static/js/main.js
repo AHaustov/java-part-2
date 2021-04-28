@@ -105,6 +105,10 @@ class ContactFormClickListener {
 }
 
 class ContactService {
+
+    let
+    lastLoadedContacts;
+
     constructor(client, renderer) {
         this.client = client;
         this.renderer = renderer;
@@ -117,6 +121,7 @@ class ContactService {
         const response = await this.client.getAll();
         if (response.ok) {
             const contacts = await response.json();
+            this.lastLoadedContacts = contacts;
             this.renderer.renderContacts(contacts);
         }
 
@@ -124,16 +129,12 @@ class ContactService {
 
     async loadSearchResults(searchPattern) {
 
-        const response = await this.client.getAll();
-        if (response.ok) {
-
-            this.renderer.clearAll();
-            const contacts = await response.json();
-            for (let contact of contacts) {
-                if (contact.name.includes(searchPattern.value)
-                    || contact.lastName.includes(searchPattern.value)) {
-                    this.renderer.renderContact(contact);
-                }
+        this.renderer.clearAll();
+        const contacts = this.lastLoadedContacts;
+        for (let contact of contacts) {
+            if (contact.name.includes(searchPattern.value)
+                || contact.lastName.includes(searchPattern.value)) {
+                this.renderer.renderContact(contact);
             }
         }
         this.renderer.clearSearch();
